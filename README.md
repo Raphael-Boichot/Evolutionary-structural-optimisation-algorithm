@@ -21,4 +21,4 @@ It is meant to be used with the [Parallel computing toolbox of Matlab](https://f
 ![code output](Pictures/Code_Output.png)
 
 ## Exemple of converged shapes with kp/k0=10
-
+![](Pictures/Converges_cases.png)
