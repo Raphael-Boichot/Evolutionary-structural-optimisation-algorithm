@@ -17,7 +17,7 @@ It is meant to be used with the [Parallel computing toolbox of Matlab](https://f
 ## Test case
 ![test case](/Pictures/Test_case.png)
 
-## Exemple of code output
+## Exemple of code output during convergence
 ![code output](Pictures/Code_Output.png)
 
 ## Exemple of converged shapes with kp/k0=10 and various algorithms
