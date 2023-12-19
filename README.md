@@ -15,8 +15,9 @@ The shape obtained presents a very efficient (and optimal) design to cool a dist
 It is meant to be used with the [Parallel computing toolbox of Matlab](https://fr.mathworks.com/products/parallel-computing.html) on multi-core processors. The code itself solves a Finite Difference approximation of the heat equation on unspecified shapes with a direct sparse solver. The test case converges in about one day on a desktop computer with 8 cores.
 
 ## Test case
-![](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm/blob/main/Pictures/Test_case.png)
+![test case](/Pictures/Test_case.png)
 
 ## Exemple of code output
+![code output](Pictures/Code_Output.png)
 
 ## Exemple of converged shapes
