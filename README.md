@@ -8,7 +8,7 @@ It is very easy to use: enter the [filling ratio and the ratio of conductivity o
 - exchange the two positions so that quantity of draining (conductive) material is constant and continue;
 - the codes stops when repeated exchanges of positions are detected.
   
-The shape obtained presents a very efficient design to cool a distributed heated surfaces like a computer chips, battery stacks, some parts of fuel cells, etc. The theoretical optimal solution to the problem must have equalized temperatures along the adiabatic borders. The code is very simple and super effective, but also super slow to converge.
+The shape obtained presents a very efficient (and optimal) design to cool a distributed heated surfaces like a computer chips, battery stacks, some parts of fuel cells, etc. The theoretical optimal solution to the problem must have equalized temperatures along the adiabatic borders. The code is very simple and super effective, but also super slow to converge. Results are similar to the [Genetic Algorithm case](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem).
 
 **Code free to use, please cite the author according to the license !**
 
