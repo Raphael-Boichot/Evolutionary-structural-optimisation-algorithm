@@ -22,3 +22,6 @@ It is meant to be used with the [Parallel computing toolbox of Matlab](https://f
 
 ## Exemple of converged shapes with kp/k0=10 and various algorithms
 ![](Pictures/Converges_cases.png)
+
+## Additional notes
+ESO and Genetic algorithm gives very similar shapes in terms of thermal performances, with ESO being about 10 times faster than GA. Cellular Automaton, not an optimization algorithm stricto sensu, converges to an acceptable local minima only. These 3 alogiorithm are anyway st(ate of the art for opptimizing the area-to-point problem.
