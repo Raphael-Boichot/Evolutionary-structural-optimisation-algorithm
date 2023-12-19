@@ -17,7 +17,7 @@ condi_limites_1=imread('50x100.bmp');
 
 disp('Reading image--------------------------------------------------------')
 
-%****Récupération du format de l'image*************************************
+%****RÃ©cupÃ©ration du format de l'image*************************************
 [hauteur,largeur,profondeur]=size(condi_limites_1);
 
 nombre_images = max([hauteur,largeur]);
@@ -61,7 +61,7 @@ nombre_pixels_conducteurs=ceil(pixels_blancs*filling_ratio);
 condi_limites=init_image(condi_limites,nombre_pixels_conducteurs, low_conductivity, high_conductivity);
 disp('Converting image-----------------------------------------------------');
 
-%****Pré-allocation de la taille des matrices utilisées dans les boucles***
+%****PrÃ©-allocation de la taille des matrices utilisÃ©es dans les boucles***
 temp=ones(hauteur,largeur).*heat_sink_temperature;
 condu_tab=zeros(hauteur,largeur,4);
 new_pos_in=zeros(hauteur,largeur);
@@ -72,19 +72,19 @@ note=zeros(hauteur,largeur);
 condi_limites_2=condi_limites_1;
 affichage=zeros(1,4);
 
-%disp('entrée des conditions initiales terminée.............................');
+%disp('entrÃ©e des conditions initiales terminÃ©e.............................');
 m=0;
 u=0;
 while max(max(automate))<20;
 tic
 m=m+1;
 disp(['Epoch: ',num2str(m),'-------------------------------------------------------------']);
-disp('Applying ESO alogorithm...');
-%************************************************************Début de l'automate cellulaire
+disp('Applying ESO algorithm...');
+%************************************************************DÃ©but de l'automate cellulaire
 [condi_limites,growth,etching] = fun_ESO_algorithm(condi_limites,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol);
 [somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad, variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,condi_limites);
 t_max_sortie(m)=t_max;
-%****créé une image de sortie compatible avec l'image d'entrée*************
+%****crÃ©Ã© une image de sortie compatible avec l'image d'entrÃ©e*************
 for k = 1:1:hauteur;
    for l = 1:1:largeur; 
        
