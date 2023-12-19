@@ -13,3 +13,10 @@ The shape obtained presents a very efficient (and optimal) design to cool a dist
 **Code free to use, please cite the author according to the license !**
 
 The code is based on an finite difference approximation of the temperature equation solved on arbitrary domains. It uses a sparse direct solver and can converges on moderately powerfull computer within an hour to a day.
+
+## Test case
+![](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm/blob/main/Pictures/Test_case.png)
+
+## Exemple of code output
+
+## Exemple of converged shapes
