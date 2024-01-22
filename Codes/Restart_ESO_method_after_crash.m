@@ -18,10 +18,10 @@ folder=dir('Topology/*.png');
 last_valid_file=length(folder);
 %condi_limites_1=imread('100x200.bmp');
 restart_topology=imread(['Topology/',folder(last_valid_file).name]);
-[hauteur,largeur,profondeur]=size(restart_topology)
+[hauteur,largeur,profondeur]=size(restart_topology);
 condi_limites_1=[restart_topology(:,1:largeur/2,:),restart_topology(:,largeur,:)];
 
-[hauteur,largeur,profondeur]=size(condi_limites_1)
+[hauteur,largeur,profondeur]=size(condi_limites_1);
 nombre_images = max([hauteur,largeur]);
 condi_limites = zeros(hauteur,largeur);
 automate=zeros(hauteur,largeur);
