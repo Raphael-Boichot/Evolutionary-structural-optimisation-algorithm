@@ -15,18 +15,19 @@ p_vol=1e5;
 filling_ratio=0.3;
 starting_image='50x100.bmp';
 
-disp('Trying to restart from last good image...')
+disp('Trying to restart from previous run if any...')
 folder=dir('Topology/*.png');
 last_valid_file=length(folder);
 
 if not(last_valid_file==0)
     flag=0;
+    disp('Previous run detected, loading last known topology...')
     restart_topology=imread(['Topology/',folder(last_valid_file).name]);
     [~,largeur,~]=size(restart_topology);
     condi_limites_1=[restart_topology(:,1:largeur/2,:),restart_topology(:,largeur,:)];
 else
     flag=1;
-    disp('No preceding run detected, starting from scratch...')
+    disp('No preceding run detected, starting from a random topology...')
     condi_limites_1=imread(starting_image);
 end
 
@@ -68,12 +69,12 @@ for k = 1:1:hauteur
 end
 
 if flag==1
-disp('Filling image with conductive pixels...')
+disp('Filling blank image with conductive pixels...')
 nombre_pixels_conducteurs=ceil(pixels_blancs*filling_ratio);
 condi_limites=init_image(condi_limites,nombre_pixels_conducteurs, low_conductivity, high_conductivity);
 end
 
-disp('Starting ESO algorithm...');
+disp('Starting the ESO algorithm...');
 
 %variable pre-allocation
 temp=ones(hauteur,largeur).*heat_sink_temperature;
