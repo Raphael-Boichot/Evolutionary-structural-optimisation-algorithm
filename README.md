@@ -2,7 +2,7 @@
 
 This code is intended to solve the Area-to-point problem in thermal science with a bidirectionnal ESO algorithm. The results of this algorithm has never been published in any peer-reviewed journal, since it's very well-known and has been implemented many times before mine (or I guess ?). 
 
-It is very easy to use: enter the [filling ratio and the ratio of conductivity of two materials](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm/blob/90a358c182916c89e3a02d2d4ccc7431a01dd4e0/Codes/Run_ESO_method.m#L8) on a heating surface linked to a localized heat sink and it makes the conductive matter (in dark) evolve following a very simple principle :
+It is very easy to use: enter the [filling ratio and the ratio of conductivity of two materials](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm/blob/52292b1c7e9fa66d76323da1290d5751ec9052a2/Codes/Run_ESO_method.m#L9) on a heating surface linked to a localized heat sink and it makes the conductive matter (in dark) evolve following a very simple principle :
 - find the position of the least quantity (a pixel) of conductive matter that does not impede maximal temperature of the domain when it's removed;
 - find the position of the least quantity (a pixel) of conductive matter that decreases at most maximal temperature of the domain when it's added;
 - exchange the two positions so that quantity of draining (conductive) material is constant and continue;
