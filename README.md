@@ -23,5 +23,8 @@ It is meant to be used with the [Parallel computing toolbox of Matlab](https://f
 ## Exemple of converged shapes with kp/k0=10 and various algorithms
 ![](Pictures/Converges_cases.png)
 
+## Exemple of convergence with kp/k0=10
+![](Pictures/Output.mp4)
+
 ## Additional notes
 ESO and [Genetic algorithm](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem) gives very similar shapes in terms of thermal performances, with ESO being about 10 times faster than GA. [Cellular Automaton](https://github.com/Raphael-Boichot/Tree-network-structure-generation-for-heat-conduction-by-cellular-automaton), not an optimization algorithm stricto sensu, converges to an acceptable local minima only. These 3 algorithms are anyway state of the art to tackle the area-to-point problem.
