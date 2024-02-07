@@ -1,4 +1,4 @@
-# Evolutionary Structural Optimisation (ESO) algorithm for thermal science
+## Evolutionary Structural Optimisation (ESO) algorithm for thermal science
 
 This code is intended to solve the Area-to-point problem in thermal science with a bidirectionnal ESO algorithm. The results of this algorithm has never been published in any peer-reviewed journal, since it's very well-known and has been implemented many times before mine (or I guess ?). 
 
