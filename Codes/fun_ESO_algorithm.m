@@ -95,6 +95,6 @@ order_etch=randperm(number_cells_to_exchange);%shuffle data for more randomness
 %Cell exchange
 for i=1:1:number_cells_to_exchange
     boudary_conditions(etching(order_etch(i),1),etching(order_etch(i),2))=k0;
-    boudary_conditions(growth(order_growth(i),1),growth(order_growth,2))=kp_k0;
+    boudary_conditions(growth(order_growth(i),1),growth(order_growth(i),2))=kp_k0;
 end
 
