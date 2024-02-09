@@ -1,4 +1,5 @@
 function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temp,step_x,p_vol,rank_cells_to_exchange)
+rng('shuffle', 'twister')%very important for the code efficiency !
 [height,width,~]=size(boundary_conditions);
 
 %Listing the cells to grow
