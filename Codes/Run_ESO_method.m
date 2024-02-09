@@ -6,19 +6,18 @@ rng('shuffle', 'twister')
 mkdir('Figure');
 mkdir('Topology');
 
-%****Thermal properties**************************
+%****Thermal properties****************************************************
 high_conductivity = 10;
 low_conductivity = 1;
-heat_sink_temperature = 300;
+heat_sink_temperature = 298;
 x_step = 0.001;
-p_vol=1e5;
+p_vol=1e6;
 filling_ratio=0.3;
-%****ESO parameters******************************
-rank_cells_to_exchange=5;%maximal rank allowed for exchange
-number_cells_allowed_to_move=1;%must be less than or equal to rank_cells_to_exchange
+rank_cells_to_exchange=5;%maximal rank allowed for exchange in the list of possible
 starting_image='50x100.bmp';
+%**************************************************************************
 
-disp('Trying to restart from previous run if any...')
+    disp('Trying to restart from previous run if any...')
 folder=dir('Topology/*.png');
 last_valid_file=length(folder);
 
@@ -87,8 +86,8 @@ while max(max(history_map))<30
     disp(' ');
     disp(['---------Epoch: ',num2str(m),'---------']);
     disp('Applying ESO algorithm...');
-    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,rank_cells_to_exchange,number_cells_allowed_to_move);
-    [somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad, variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,boundary_conditions);
+    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,rank_cells_to_exchange);
+    [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,boundary_conditions);
     history_tmax(m-last_valid_file)=t_max;
     
     for k = 1:1:height
@@ -155,10 +154,14 @@ while max(max(history_map))<30
     title('Gradients');
     
     subplot(2,4,8);
-    for i=1:1:number_cells_allowed_to_move
-        history_map(growth(i,1),growth(i,2))=history_map(growth(i,1),growth(i,2))+1;
-        history_map(etching(i,1),etching(i,2))=history_map(etching(i,1),etching(i,2))+1;
-    end
+    history_map(growth(1,1),growth(1,2))=history_map(growth(1,1),growth(1,2))+1;
+    history_map(etching(1,1),etching(1,2))=history_map(etching(1,1),etching(1,2))+1;
+
+    % for i=1:1:number_cells_allowed_to_move
+    %     history_map(growth(i,1),growth(i,2))=history_map(growth(i,1),growth(i,2))+1;
+    %     history_map(etching(i,1),etching(i,2))=history_map(etching(i,1),etching(i,2))+1;
+    % end
+
     imagesc(history_map);
     title('History');
     
@@ -172,15 +175,15 @@ while max(max(history_map))<30
     saveas(gcf,['Figure/Figure_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'_',num2str(m,'%06.f'),'.png']);
     imwrite(arbre,['Topology/Topology_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'_',num2str(m,'%06.f'),'.png']);
     
-    if (m-last_valid_file)>2
-        if residuals(end)<0
-            number_cells_allowed_to_move=number_cells_allowed_to_move-1;
-            if number_cells_allowed_to_move<1
-                number_cells_allowed_to_move=1;
-            end
-        end
-    end
-    disp(['Cells allowed to move: ',num2str(number_cells_allowed_to_move)]);
+    % if (m-last_valid_file)>2
+    %     if residuals(end)<0
+    %         number_cells_allowed_to_move=number_cells_allowed_to_move-1;
+    %         if number_cells_allowed_to_move<1
+    %             number_cells_allowed_to_move=1;
+    %         end
+    %     end
+    % end
+    % disp(['Cells allowed to move: ',num2str(number_cells_allowed_to_move)]);
     disp(['Max redunding moves: ',num2str(max(max(history_map)))]);
     toc
 end

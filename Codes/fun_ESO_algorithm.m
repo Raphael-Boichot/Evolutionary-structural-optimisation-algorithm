@@ -1,4 +1,4 @@
-function [boudary_conditions,growth,etching] = fun_ESO_algorithm(boudary_conditions,kp_k0,k0,heat_sink_temp,step_x,p_vol,rank_cells_to_exchange,number_cells_to_exchange)
+function [boudary_conditions,growth,etching] = fun_ESO_algorithm(boudary_conditions,kp_k0,k0,heat_sink_temp,step_x,p_vol,rank_cells_to_exchange)
 [height,width,~]=size(boudary_conditions);
 
 %Listing the cells to grow
@@ -68,7 +68,7 @@ parfor m=1:length(grow_pos)
     % 8. Map of temperatures (matrix)
     % 9. map of thermal gradients (matrix)
     % 10. Variance of gradients across the 2D domain (scalar)
-    [~,~,~,~,~,temp_max,~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temp,step_x,p_vol,boudary_conditions_temp(:,:,m));
+    [~,~,~,~,~,~,temp_max,~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temp,step_x,p_vol,boudary_conditions_temp(:,:,m));
     grow_pos(m,3)=temp_max;
 end
 
@@ -87,14 +87,19 @@ parfor m=1:length(etch_pos)
 end
 etch_pos=sortrows(etch_pos,3);
 
-growth=grow_pos(1:rank_cells_to_exchange,1:2);%list allowed to grow
-etching=etch_pos(1:rank_cells_to_exchange,1:2);%list allowed to be killed
-order_growth=randperm(number_cells_to_exchange);%shuffle data for more randomness
-order_etch=randperm(number_cells_to_exchange);%shuffle data for more randomness
+% growth=grow_pos(1:rank_cells_to_exchange,1:2);%list allowed to grow
+% etching=etch_pos(1:rank_cells_to_exchange,1:2);%list allowed to be killed
+% order_growth=randperm(number_cells_to_exchange);%shuffle data for more randomness
+% order_etch=randperm(number_cells_to_exchange);%shuffle data for more randomness
+% 
+% %Cell exchange
+% for i=1:1:number_cells_to_exchange
+%     boudary_conditions(etching(order_etch(i),1),etching(order_etch(i),2))=k0;
+%     boudary_conditions(growth(order_growth(i),1),growth(order_growth(i),2))=kp_k0;
+% end
 
-%Cell exchange
-for i=1:1:number_cells_to_exchange
-    boudary_conditions(etching(order_etch(i),1),etching(order_etch(i),2))=k0;
-    boudary_conditions(growth(order_growth(i),1),growth(order_growth(i),2))=kp_k0;
-end
+growth=grow_pos(ceil(rand*rank_cells_to_exchange),1:2);%list allowed to grow
+etching=etch_pos(ceil(rand*rank_cells_to_exchange),1:2);%list allowed to be killed
 
+boudary_conditions(etching(1,1),etching(1,2))=k0;
+boudary_conditions(growth(1,1),growth(1,2))=kp_k0;
