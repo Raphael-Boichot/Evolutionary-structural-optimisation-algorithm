@@ -175,15 +175,6 @@ while max(max(history_map))<30
     saveas(gcf,['Figure/Figure_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'_',num2str(m,'%06.f'),'.png']);
     imwrite(arbre,['Topology/Topology_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'_',num2str(m,'%06.f'),'.png']);
     
-    % if (m-last_valid_file)>2
-    %     if residuals(end)<0
-    %         number_cells_allowed_to_move=number_cells_allowed_to_move-1;
-    %         if number_cells_allowed_to_move<1
-    %             number_cells_allowed_to_move=1;
-    %         end
-    %     end
-    % end
-    % disp(['Cells allowed to move: ',num2str(number_cells_allowed_to_move)]);
     disp(['Max redunding moves: ',num2str(max(max(history_map)))]);
     toc
 end
