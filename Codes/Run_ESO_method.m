@@ -1,23 +1,23 @@
 clear;
 clc;
 close all;
-format long
 rng('shuffle', 'twister')
+format long
 mkdir('Figure');
 mkdir('Topology');
 
 %****Thermal properties****************************************************
-high_conductivity = 10;
-low_conductivity = 1;
-heat_sink_temperature = 298;
-x_step = 0.001;
-p_vol=1e6;
-filling_ratio=0.3;
-rank_cells_to_exchange=5;%maximal rank allowed for exchange in the list of possible
-starting_image='50x100.bmp';
+high_conductivity = 10;         %conductivity of the draining material
+low_conductivity = 1;           %conductivity of the heating matter
+heat_sink_temperature = 298;    %self explanatory   
+x_step = 0.001;                 %size of x/x cells
+p_vol=1e6;                      %surface of volume power
+filling_ratio=0.3;              %ratio of conductive matter on the surface
+starting_image='50x100.bmp';     %self explanatory
+max_rank=5;                     %maximum rank for exchange
 %**************************************************************************
 
-    disp('Trying to restart from previous run if any...')
+disp('Trying to restart from previous run if any...')
 folder=dir('Topology/*.png');
 last_valid_file=length(folder);
 
@@ -86,7 +86,7 @@ while max(max(history_map))<30
     disp(' ');
     disp(['---------Epoch: ',num2str(m),'---------']);
     disp('Applying ESO algorithm...');
-    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,rank_cells_to_exchange);
+    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol, max_rank);
     [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,boundary_conditions);
     history_tmax(m-last_valid_file)=t_max;
     
@@ -156,12 +156,6 @@ while max(max(history_map))<30
     subplot(2,4,8);
     history_map(growth(1,1),growth(1,2))=history_map(growth(1,1),growth(1,2))+1;
     history_map(etching(1,1),etching(1,2))=history_map(etching(1,1),etching(1,2))+1;
-
-    % for i=1:1:number_cells_allowed_to_move
-    %     history_map(growth(i,1),growth(i,2))=history_map(growth(i,1),growth(i,2))+1;
-    %     history_map(etching(i,1),etching(i,2))=history_map(etching(i,1),etching(i,2))+1;
-    % end
-
     imagesc(history_map);
     title('History');
     
