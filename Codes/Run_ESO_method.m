@@ -20,6 +20,9 @@ max_cell_swap=1;                %maximum number of simultaneous cell swap
 max_redounding_move_allowed=50; %stopping criterion, why not
 %**************************************************************************
 
+if max_cell_swap>max_rank
+    max_cell_swap=max_rank;
+end
 disp('Trying to restart from previous run if any...')
 folder=dir('Topology/*.png');
 last_valid_file=length(folder);
@@ -171,12 +174,12 @@ while max(max(history_map))<max_redounding_move_allowed
     end
     
     %allows speed up convergence a bit
-%     if rand<0.01
-%         max_cell_swap=max_cell_swap+1;
-%         if max_cell_swap>max_rank
-%             max_cell_swap=max_rank;
-%         end
-%     end
+    %     if rand<0.01
+    %         max_cell_swap=max_cell_swap+1;
+    %         if max_cell_swap>max_rank
+    %             max_cell_swap=max_rank;
+    %         end
+    %     end
     
     subplot(2,4,8);
     imagesc(sqrt(history_map));
