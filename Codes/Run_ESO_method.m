@@ -171,12 +171,12 @@ while max(max(history_map))<max_redounding_move_allowed
     end
     
     %allows speed up convergence a bit
-    if rand<0.01
-        local_rank=local_rank+1;
-        if local_rank>max_rank
-            local_rank=max_rank;
-        end
-    end
+%     if rand<0.01
+%         local_rank=local_rank+1;
+%         if local_rank>max_rank
+%             local_rank=max_rank;
+%         end
+%     end
     
     subplot(2,4,8);
     imagesc(sqrt(history_map));
