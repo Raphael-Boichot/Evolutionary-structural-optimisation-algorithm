@@ -1,5 +1,5 @@
 %https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm
-function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temperature,step_x,p_vol,max_rank, local_rank)
+function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temperature,step_x,p_vol,max_rank, max_cell_swap)
 [height,width,~]=size(boundary_conditions);
 rng('shuffle', 'twister')
 %listing cells to grow
@@ -102,7 +102,7 @@ order_etch=randperm(max_rank);
 growth=grow_pos(order_growth,:);
 etching=etch_pos(order_etch,:);
 %Cell swapping
-for i=1:1:local_rank
+for i=1:1:max_cell_swap
 boundary_conditions(etching(i,1),etching(i,2))=k0;
 boundary_conditions(growth(i,1),growth(i,2))=kp_k0;
 end
