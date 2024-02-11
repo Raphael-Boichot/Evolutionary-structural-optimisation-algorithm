@@ -1,3 +1,4 @@
+%https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm
 clear;
 clc;
 close all;
@@ -6,7 +7,7 @@ format long
 mkdir('Figure');
 mkdir('Topology');
 
-%****Thermal properties****************************************************
+%****ESO parameters********************************************************
 high_conductivity = 10;         %conductivity of the draining material
 low_conductivity = 1;           %conductivity of the heating matter
 heat_sink_temperature = 298;    %self explanatory
@@ -15,6 +16,7 @@ p_vol=1e6;                      %surface of volume power
 filling_ratio=0.3;              %ratio of conductive matter on the surface
 starting_image='50x100.bmp';    %self explanatory
 max_rank=5;                     %maximum rank for exchange
+max_redounding_move_allowed=50; %stopping criterion, why not
 %**************************************************************************
 
 disp('Trying to restart from previous run if any...')
@@ -82,7 +84,7 @@ u=0;
 figure('Position',[100 100 600 600]);
 local_rank=max_rank;
 
-while max(max(history_map))<50
+while max(max(history_map))<max_redounding_move_allowed
     tic
     m=m+1;
     disp(' ');
