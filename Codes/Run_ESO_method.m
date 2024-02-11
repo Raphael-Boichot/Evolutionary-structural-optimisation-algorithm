@@ -7,7 +7,10 @@ format long
 mkdir('Figure');
 mkdir('Topology');
 
-%****ESO parameters********************************************************
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%User parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---------Conditions for thermal science-----------------------------------
 high_conductivity = 10;         %conductivity of the draining material
 low_conductivity = 1;           %conductivity of the heating matter
 heat_sink_temperature = 298;    %self explanatory
@@ -15,10 +18,11 @@ delta_x = 0.001;                %size of x/y square cells
 p_vol=1e6;                      %surface of volume power
 filling_ratio=0.3;              %ratio of conductive matter on the surface
 starting_image='50x100.bmp';    %self explanatory
+%----------Hyper parameters for the ESO algorithm--------------------------
 max_rank=5;                     %maximum rank for exchange
 max_cell_swap=1;                %maximum number of simultaneous cell swap
 max_redounding_move_allowed=50; %stopping criterion, why not
-%**************************************************************************
+%--------------------------------------------------------------------------
 
 if max_cell_swap>max_rank
     max_cell_swap=max_rank;
