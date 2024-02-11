@@ -5,7 +5,7 @@ This code is intended to solve the Area-to-point problem in thermal science with
 It is very easy to use: enter the filling ratio and the ratio of conductivity of two materials on a heating surface linked to a localized heat sink and it makes the conductive matter (in dark) evolve following a very simple principle :
 - find the position of the least quantity (a pixel) of conductive matter that does not impede maximal temperature of the domain when it's removed;
 - find the position of the least quantity (a pixel) of conductive matter that decreases at most maximal temperature of the domain when it's added;
-- exchange the two positions so that quantity of draining (conductive) material is constant and continue. Adding a bit of randomness at this step is better;
+- exchange the two cell properties so that quantity of draining (conductive) material is constant and continue. Adding a bit of randomness at this step, like taking the best swap among 5 possibilities for example, is better. Several cells can be exchanged at this step to speed up convergence in particular at the beginning;
 - the codes stops when repeated exchanges of positions are detected.
   
 The shape obtained presents a very efficient (and optimal) design to cool a distributed heated surfaces like a computer chips, battery stacks, some parts of fuel cells, etc. The theoretical optimal solution to the problem must have equalized temperatures along the adiabatic borders. The code is very simple and super effective, but also quite slow to converge. Results are similar to the [Genetic Algorithm case](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem).
