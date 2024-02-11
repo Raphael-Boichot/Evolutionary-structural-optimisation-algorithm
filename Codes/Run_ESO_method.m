@@ -9,12 +9,12 @@ mkdir('Topology');
 %****Thermal properties****************************************************
 high_conductivity = 10;         %conductivity of the draining material
 low_conductivity = 1;           %conductivity of the heating matter
-heat_sink_temperature = 298;    %self explanatory   
+heat_sink_temperature = 298;    %self explanatory
 x_step = 0.001;                 %size of x/x cells
 p_vol=1e6;                      %surface of volume power
 filling_ratio=0.3;              %ratio of conductive matter on the surface
-starting_image='50x100.bmp';     %self explanatory
-max_rank=5;                     %maximum rank for exchange
+starting_image='50x100.bmp';    %self explanatory
+max_rank=10;                    %maximum rank for exchange
 %**************************************************************************
 
 disp('Trying to restart from previous run if any...')
@@ -37,7 +37,7 @@ end
 number_of_images = max([height,width]);
 boundary_conditions = zeros(height,width);
 history_map=zeros(height,width);
-
+history_map(1,1)=1;
 %conversion of an image to boundary conditions
 non_conductive_cells=0;
 conductive_cells=0;
@@ -79,14 +79,15 @@ affichage=zeros(1,4);
 m=last_valid_file;
 u=0;
 figure('Position',[100 100 600 600]);
+local_rank=max_rank;
 
-while max(max(history_map))<30
+while max(max(history_map))<50
     tic
     m=m+1;
     disp(' ');
     disp(['---------Epoch: ',num2str(m),'---------']);
     disp('Applying ESO algorithm...');
-    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol, max_rank);
+    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol, max_rank, local_rank);
     [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,boundary_conditions);
     history_tmax(m-last_valid_file)=t_max;
     
@@ -150,14 +151,23 @@ while max(max(history_map))<30
     
     subplot(2,4,7);
     imagesc(grad);
-    colormap hot
     title('Gradients');
     
+    old_max_history=max(max(history_map));
+    for i=1:1:local_rank
+        history_map(growth(i,1),growth(i,2))=history_map(growth(i,1),growth(i,2))+1;
+        history_map(etching(i,1),etching(i,2))=history_map(etching(i,1),etching(i,2))+1;
+    end
+    if max(max(history_map))>old_max_history
+        local_rank=local_rank-1;
+        if local_rank<1
+            local_rank=1;
+        end
+    end
+    
     subplot(2,4,8);
-    history_map(growth(1,1),growth(1,2))=history_map(growth(1,1),growth(1,2))+1;
-    history_map(etching(1,1),etching(1,2))=history_map(etching(1,1),etching(1,2))+1;
-    imagesc(history_map);
-    title('History');
+    imagesc(log10(history_map));
+    title('History map');
     
     disp(['Maximal temperature: ',num2str(history_tmax(m-last_valid_file))]);
     initial_boundary_conditions=boundary_output;
@@ -168,8 +178,8 @@ while max(max(history_map))<30
     imwrite(arbre,['Topology_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'.png']);
     saveas(gcf,['Figure/Figure_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'_',num2str(m,'%06.f'),'.png']);
     imwrite(arbre,['Topology/Topology_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'_',num2str(m,'%06.f'),'.png']);
-    
     disp(['Max redunding moves: ',num2str(max(max(history_map)))]);
+    disp(['Cells allowed for swapping: ',num2str(local_rank)])
     toc
 end
 disp('Converged !');

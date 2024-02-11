@@ -1,4 +1,4 @@
-function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temperature,step_x,p_vol,max_rank)
+function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temperature,step_x,p_vol,max_rank, local_rank)
 [height,width,~]=size(boundary_conditions);
 rng('shuffle', 'twister')
 %listing cells to grow
@@ -96,9 +96,12 @@ end
 etch_pos=sortrows(etch_pos,3);
 
 %Selecting some good candidates for swapping with a bit of randomness
-growth=grow_pos(ceil(max_rank*rand),:);
-etching=etch_pos(ceil(max_rank*rand),:);
-
+order_growth=randperm(max_rank);
+order_etch=randperm(max_rank);
+growth=grow_pos(order_growth,:);
+etching=etch_pos(order_etch,:);
 %Cell swapping
-boundary_conditions(etching(1,1),etching(1,2))=k0;
-boundary_conditions(growth(1,1),growth(1,2))=kp_k0;
+for i=1:1:local_rank
+boundary_conditions(etching(i,1),etching(i,2))=k0;
+boundary_conditions(growth(i,1),growth(i,2))=kp_k0;
+end
