@@ -1,3 +1,4 @@
+%https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm
 function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temperature,step_x,p_vol,max_rank, local_rank)
 [height,width,~]=size(boundary_conditions);
 rng('shuffle', 'twister')

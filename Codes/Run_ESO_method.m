@@ -162,17 +162,20 @@ while max(max(history_map))<max_redounding_move_allowed
         history_map(etching(i,1),etching(i,2))=history_map(etching(i,1),etching(i,2))+1;
     end
     
+    %allows to avoid cell swapping again and again at the same positions
     if max(max(history_map))>old_max_history
         local_rank=local_rank-1;
         if local_rank<1
             local_rank=1;
         end
     end
-    if rand<0.02
+    
+    %allows speed up convergence a bit
+    if rand<0.01
         local_rank=local_rank+1;
-    end
-    if local_rank>max_rank
-        local_rank=max_rank;
+        if local_rank>max_rank
+            local_rank=max_rank;
+        end
     end
     
     subplot(2,4,8);
