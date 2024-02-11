@@ -1,5 +1,5 @@
 %https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm
-function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temperature,step_x,p_vol,max_rank, max_cell_swap)
+function [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,kp_k0,k0,heat_sink_temperature,delta_x,p_vol,max_rank, max_cell_swap)
 [height,width,~]=size(boundary_conditions);
 rng('shuffle', 'twister')
 %listing cells to grow
@@ -69,7 +69,7 @@ parfor m=1:1:length(grow_pos)
     % 8. Map of temperatures (matrix)
     % 9. map of thermal gradients (matrix)
     % 10. Variance of gradients across the 2D domain (scalar)
-    [~,~,~,~,~,~,grow_pos(m,3),~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,step_x,p_vol,boundary_conditions_temp(:,:,m));
+    [~,~,~,~,~,~,grow_pos(m,3),~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,delta_x,p_vol,boundary_conditions_temp(:,:,m));
 end
 grow_pos=sortrows(grow_pos,3);
 
@@ -92,7 +92,7 @@ parfor m=1:1:length(etch_pos)
     % 8. Map of temperatures (matrix)
     % 9. map of thermal gradients (matrix)
     % 10. Variance of gradients across the 2D domain (scalar)
-    [~,~,~,~,~,~,etch_pos(m,3),~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,step_x,p_vol,boundary_conditions_temp(:,:,m));
+    [~,~,~,~,~,~,etch_pos(m,3),~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,delta_x,p_vol,boundary_conditions_temp(:,:,m));
 end
 etch_pos=sortrows(etch_pos,3);
 

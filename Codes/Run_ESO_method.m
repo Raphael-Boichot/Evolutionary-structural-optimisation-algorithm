@@ -11,7 +11,7 @@ mkdir('Topology');
 high_conductivity = 10;         %conductivity of the draining material
 low_conductivity = 1;           %conductivity of the heating matter
 heat_sink_temperature = 298;    %self explanatory
-x_step = 0.001;                 %size of x/y square cells
+delta_x = 0.001;                %size of x/y square cells
 p_vol=1e6;                      %surface of volume power
 filling_ratio=0.3;              %ratio of conductive matter on the surface
 starting_image='50x100.bmp';    %self explanatory
@@ -93,8 +93,8 @@ while max(max(history_map))<max_redounding_move_allowed
     disp(' ');
     disp(['---------Epoch: ',num2str(m),'---------']);
     disp('Applying ESO algorithm...');
-    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol, max_rank, max_cell_swap);
-    [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,x_step,p_vol,boundary_conditions);
+    [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol, max_rank, max_cell_swap);
+    [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,boundary_conditions);
     history_tmax(m-last_valid_file)=t_max;
     
     for k = 1:1:height
