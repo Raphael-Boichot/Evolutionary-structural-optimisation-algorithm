@@ -10,11 +10,11 @@ mkdir('Topology');
 high_conductivity = 10;         %conductivity of the draining material
 low_conductivity = 1;           %conductivity of the heating matter
 heat_sink_temperature = 298;    %self explanatory
-x_step = 0.001;                 %size of x/x cells
+x_step = 0.001;                 %size of x/y square cells
 p_vol=1e6;                      %surface of volume power
 filling_ratio=0.3;              %ratio of conductive matter on the surface
 starting_image='50x100.bmp';    %self explanatory
-max_rank=10;                    %maximum rank for exchange
+max_rank=5;                     %maximum rank for exchange
 %**************************************************************************
 
 disp('Trying to restart from previous run if any...')
@@ -38,6 +38,7 @@ number_of_images = max([height,width]);
 boundary_conditions = zeros(height,width);
 history_map=zeros(height,width);
 history_map(1,1)=1;
+
 %conversion of an image to boundary conditions
 non_conductive_cells=0;
 conductive_cells=0;
@@ -166,7 +167,7 @@ while max(max(history_map))<50
     end
     
     subplot(2,4,8);
-    imagesc(log10(history_map));
+    imagesc(sqrt(history_map));
     title('History map');
     
     disp(['Maximal temperature: ',num2str(history_tmax(m-last_valid_file))]);
