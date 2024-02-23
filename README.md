@@ -10,6 +10,8 @@ It is very easy to use: enter the filling ratio and the ratio of conductivity of
   
 The shape obtained presents a very efficient (and optimal) design to cool a distributed heated surfaces like a computer chips, battery stacks, some parts of fuel cells, etc. The theoretical optimal solution to the problem must have equalized temperatures along the adiabatic borders. The code is very simple and super effective, but also quite slow to converge. Results are similar to the [Genetic Algorithm case](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem).
 
+An improvement of this code is also available: the [Progressive ESO (PESO)][(](https://github.com/Raphael-Boichot/Progressive-evolutionary-structural-optimisation-algorithm))
+
 **Code free to use, please cite the author according to the license !**
 
 It is meant to be used with the [Parallel computing toolbox of Matlab](https://fr.mathworks.com/products/parallel-computing.html) on multi-core processors. The code itself solves a Finite Difference approximation of the heat equation on unspecified shapes with a direct sparse solver. The test case converges in about one day on a desktop computer with 8 cores.
