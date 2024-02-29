@@ -19,13 +19,13 @@ It is meant to be used with the [Parallel computing toolbox of Matlab](https://f
 ## Test case
 ![test case](/Pictures/Test_case.png)
 
-## Exemple of code output during convergence
+## Exemple of code output during convergence, max temperature minimization
 ![code output](Pictures/Code_Output.png)
 
-## Exemple of converged shapes with kp/k0=10, filling ratio = 0.3 and various algorithms
+## Exemple of converged shapes with kp/k0=10, filling ratio = 0.3 and various algorithms, max temperature minimization
 ![](Pictures/Converges_cases.png)
 
-## Exemple of convergence with kp/k0=10 and filling ratio = 0.3 (20 steps per frame)
+## Exemple of convergence with kp/k0=10 and filling ratio = 0.3 (20 steps per frame), max temperature minimization
 ![](Pictures/ESO_output.gif)
 
 ## Additional notes
