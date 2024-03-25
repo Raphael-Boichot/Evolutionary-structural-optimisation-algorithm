@@ -69,7 +69,8 @@ parfor m=1:1:length(grow_pos)
     % 8. Map of temperatures (matrix)
     % 9. map of thermal gradients (matrix)
     % 10. Variance of gradients across the 2D domain (scalar)
-    [~,~,~,~,~,~,grow_pos(m,3),~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,delta_x,p_vol,boundary_conditions_temp(:,:,m));
+    [~,~,~,~,~,~,objective_function,~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,delta_x,p_vol,boundary_conditions_temp(:,:,m));
+    grow_pos(m,3)=objective_function;
 end
 grow_pos=sortrows(grow_pos,3);
 
@@ -92,7 +93,8 @@ parfor m=1:1:length(etch_pos)
     % 8. Map of temperatures (matrix)
     % 9. map of thermal gradients (matrix)
     % 10. Variance of gradients across the 2D domain (scalar)
-    [~,~,~,~,~,~,etch_pos(m,3),~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,delta_x,p_vol,boundary_conditions_temp(:,:,m));
+    [~,~,~,~,~,~,objective_function,~,~,~]=finite_temp_direct_sparse(kp_k0,k0,heat_sink_temperature,delta_x,p_vol,boundary_conditions_temp(:,:,m));
+    etch_pos(m,3)=objective_function;
 end
 etch_pos=sortrows(etch_pos,3);
 

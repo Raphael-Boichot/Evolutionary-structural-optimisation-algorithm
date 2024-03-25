@@ -98,8 +98,19 @@ while max(max(history_map))<max_redounding_move_allowed
     disp(['---------Epoch: ',num2str(m),'---------']);
     disp('Applying ESO algorithm...');
     [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol, max_rank, max_cell_swap);
-    [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,boundary_conditions);
-    history_tmax(m-last_valid_file)=t_max;
+    % Variables output in this order :
+    % 1. Distance of the hotest cell to the heat sink (scalar)
+    % 2. Sum of cell entropy (scalar)
+    % 3. Entropy map (matrix)
+    % 4. Variance of temperatures accross the 1D adabatic borders (scalar)
+    % 5. Variance of temperatures accross the 2D domain (scalar)
+    % 6. Mean temperature (scalar)
+    % 7. Maximal temperature accross the 2D domain (scalar)
+    % 8. Map of temperatures (matrix)
+    % 9. map of thermal gradients (matrix)
+    % 10. Variance of gradients across the 2D domain (scalar)
+    [~,~,entropy_map,~,~,~,t_max,temp,grad,~]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,boundary_conditions);
+    history_tmax(m-last_valid_file)=t_max; %here the objective function to minimize is the maximal temperature
     
     for k = 1:1:height
         for l = 1:1:width
@@ -151,8 +162,7 @@ while max(max(history_map))<max_redounding_move_allowed
     title('Topology');
     
     subplot(2,4,5);
-    plot(variance,'.m');
-    imagesc(log10(entropie(2:end-1,2:end-1)));
+    imagesc(log10(entropy_map(2:end-1,2:end-1)));
     title('Log10 Entropy');
     
     subplot(2,4,6);
